@@ -1,1 +1,6 @@
+com\javaaround\dpattern\factorypattern\Circle.class
 com\javaaround\dpattern\App.class
+com\javaaround\dpattern\factorypattern\Square.class
+com\javaaround\dpattern\factorypattern\Rectangle.class
+com\javaaround\dpattern\factorypattern\Shape.class
+com\javaaround\dpattern\factorypattern\ShapeFactory.class
