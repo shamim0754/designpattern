@@ -37,7 +37,7 @@
 
 ## Factory Method pattern ## 
 
-Factory Method pattern says that define an factory(interface or abstract class) for creating an object	without exposing the creation logic to the App client.
+Factory pattern is an factory(interface or abstract class) is responsible for creating an object.As a result No need to create object of App client.
 
 Step 1 : <br>
 Create an interface or abstract class
@@ -126,12 +126,17 @@ public class App
     {
     	System.out.println("Hello World");
 
-    	//usage of factory pattern 
+    	//get shape factory
         ShapeFactory shapeFactory = new ShapeFactory();
+        //get shape by providing param
         Shape shape = shapeFactory.getShape("CIRCLE");
+        //display
         shape.draw(); 
 
     }
 }
 
 ```
+
+## Abstract Factory pattern ## 
+Abstract Factory pattern an interface is responsible for creating a factory of related objects without explicitly specifying their classes. Each generated factory can give the objects as per the Factory pattern.
