@@ -7,7 +7,7 @@
  Erich Gamma, Richard Helm, Ralph Johnson and John Vlissides published a book titled Design Patterns - Elements of Reusable Object-Oriented Software which initiated the concept of Design Pattern in Software development.In this book,there are 23 design patterns which can be classified in three categories:
  1. <b>Creational</b>:
  These design patterns provide a way to create objects while hiding the creation logic, rather than instantiating objects directly using new opreator. This gives program more flexibility in deciding which objects need to be created for a given use case
- 	1. Factory pattern 
+ 	1. Factory Method pattern 
  	2. Abstract Factory pattern 
  	3. Singleton pattern 
  	4. Prototype Pattern 
@@ -34,3 +34,9 @@
  	7. State pattern
  	8. Null Object pattern
  	9. Strategy pattern
+
+## Factory Method pattern ## 
+Factory Method pattern says that define an factory(interface or abstract class) for creating an object	without exposing the creation logic to the App client.
+
+Step 1 : <br>
+Create an interface or abstract class
