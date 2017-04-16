@@ -6,7 +6,7 @@
 
  Erich Gamma, Richard Helm, Ralph Johnson and John Vlissides published a book titled Design Patterns - Elements of Reusable Object-Oriented Software which initiated the concept of Design Pattern in Software development.In this book,there are 23 design patterns which can be classified in three categories:
  1. <b>Creational</b>:
- If object creation code(using new opreator - traditional way) is spread in whole application, and if you need to change the process of object creation then you need to go in each and every place to make necessary changes . As a result application manages become more difficult and complicated.
+ If object creation code(using new opreator - traditional way to create object) is spread in whole application, and if you need to change the process of object creation then you need to go in each and every place to make necessary changes . As a result application manages become more difficult and complicated.
  Followint design pattern gives application more flexibility and smart way to create object
  	1. Factory Method pattern 
  	2. Abstract Factory pattern 
@@ -41,6 +41,8 @@
 Factory, as name suggest, is a place to create some different products which are somehow similar in features yet divided in categories.
 Programatically, factory pattern is used to create instances of different classes of same type.
 
+## Use case ##
+Factory pattern is most suitable where there is some complex object creation steps are involved
 
 Create an interface or abstract class
 ```java
@@ -50,6 +52,12 @@ public interface Shape {
 }
 ```
 
+## Use at jdk ###
+
+1. java.sql.DriverManager#getConnection()
+2. java.net.URL#openConnection()
+3. java.lang.Class#newInstance()
+4. java.lang.Class#forName()
 
 Create implementation classes implementing the same interface.
 
@@ -88,7 +96,7 @@ public class Circle implements Shape {
 
 
 
-Create public Factory method to get instance of above class
+Create Factory class to get instance of above class
 
 ```java
 package com.javaaround.dpattern.factorypattern;
