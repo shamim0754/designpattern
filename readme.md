@@ -6,7 +6,8 @@
 
  Erich Gamma, Richard Helm, Ralph Johnson and John Vlissides published a book titled Design Patterns - Elements of Reusable Object-Oriented Software which initiated the concept of Design Pattern in Software development.In this book,there are 23 design patterns which can be classified in three categories:
  1. <b>Creational</b>:
- These design patterns provide a way to create objects while hiding the creation logic, rather than instantiating objects directly using new opreator. This gives program more flexibility in deciding which objects need to be created for a given use case
+ If object creation code(using new opreator - traditional way) is spread in whole application, and if you need to change the process of object creation then you need to go in each and every place to make necessary changes . As a result application manages become more difficult and complicated.
+ Followint design pattern gives application more flexibility and smart way to create object
  	1. Factory Method pattern 
  	2. Abstract Factory pattern 
  	3. Singleton pattern 
@@ -37,9 +38,10 @@
 
 ## Factory Method pattern ## 
 
-Factory pattern is an factory(interface or abstract class) is responsible for creating an object.As a result No need to create object of App client.
+Factory, as name suggest, is a place to create some different products which are somehow similar in features yet divided in categories.
+Programatically, factory pattern is used to create instances of different classes of same type.
 
-Step 1 : <br>
+
 Create an interface or abstract class
 ```java
 package com.javaaround.dpattern.factorypattern;
@@ -48,7 +50,7 @@ public interface Shape {
 }
 ```
 
-Step 2 : <br>
+
 Create implementation classes implementing the same interface.
 
 ```java
@@ -85,8 +87,8 @@ public class Circle implements Shape {
 ```
 
 
-Step 3 : <br>
-Create public Factory method to get instance based on param value
+
+Create public Factory method to get instance of above class
 
 ```java
 package com.javaaround.dpattern.factorypattern;

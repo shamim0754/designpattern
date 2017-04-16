@@ -1,6 +1,10 @@
 package com.javaaround.dpattern.factorypattern;
-public class ShapeFactory {
+public class ShapeFactory implements Factory {
 	
+   @Override
+   public void getColorFactory() {
+      System.out.println("Inside Blue::fill() method.");
+   }
    //use getShape method to get object of type shape 
    public Shape getShape(String shapeType){
    	  if(shapeType == null)
