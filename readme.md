@@ -43,6 +43,12 @@ Programatically, factory pattern is used to create instances of different classe
 
 ## Use case ##
 Factory pattern is most suitable where there is some complex object creation steps are involved
+## Use at jdk ###
+
+1. java.sql.DriverManager#getConnection()
+2. java.net.URL#openConnection()
+3. java.lang.Class#newInstance()
+4. java.lang.Class#forName()
 
 Create an interface or abstract class
 ```java
@@ -52,12 +58,7 @@ public interface Shape {
 }
 ```
 
-## Use at jdk ###
 
-1. java.sql.DriverManager#getConnection()
-2. java.net.URL#openConnection()
-3. java.lang.Class#newInstance()
-4. java.lang.Class#forName()
 
 Create implementation classes implementing the same interface.
 
