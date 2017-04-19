@@ -1,9 +1,13 @@
 package com.javaaround.dpattern.factorypattern;
-public class ShapeFactory implements Factory {
+public class ShapeFactory/* implements Factory*/ {
 	
-   @Override
+  /* @Override
    public void getColorFactory() {
       System.out.println("Inside Blue::fill() method.");
+   }*/
+      
+   public static ShapeFactory newInstance() {
+      return new ShapeFactory();
    }
    //use getShape method to get object of type shape 
    public Shape getShape(String shapeType){
@@ -17,7 +21,6 @@ public class ShapeFactory implements Factory {
          
       else if(shapeType.equalsIgnoreCase("SQUARE"))
          return new Square();
-      
       
       return null;
    }

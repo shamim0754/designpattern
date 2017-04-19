@@ -1,6 +1,6 @@
 ##  Design pattern ##
 
- Design patterns are standard solutions/technique to general problems that software developers faced during software development.
+ Design patterns are standard solutions/technique for commonly (and frequently) occurred problems that software developers faced during software development.
 
 ## Gang of Four (GOF) ##
 
@@ -8,7 +8,7 @@
  1. <b>Creational</b>:
  If object creation code(using new opreator - traditional way to create object) is spread in whole application, and if you need to change the process of object creation then you need to go in each and every place to make necessary changes . As a result application manages become more difficult and complicated.
  Followint design pattern gives application more flexibility and smart way to create object
- 	1. Factory Method pattern 
+ 	1. Factory(Factory Method) pattern 
  	2. Abstract Factory pattern 
  	3. Singleton pattern 
  	4. Prototype Pattern 
@@ -103,6 +103,10 @@ Create Factory class to get instance of above class
 package com.javaaround.dpattern.factorypattern;
 public class ShapeFactory {
 	
+  //return instance 
+   public static ShapeFactory newInstance() {
+      return new ShapeFactory();
+   }
    //use getShape method to get object of type shape 
    public Shape getShape(String shapeType){
    	  if(shapeType == null)
@@ -138,11 +142,11 @@ public class App
     	System.out.println("Hello World");
 
     	//get shape factory
-        ShapeFactory shapeFactory = new ShapeFactory();
-        //get shape by providing param
-        Shape shape = shapeFactory.getShape("CIRCLE");
-        //display
-        shape.draw(); 
+      ShapeFactory shapeFactory = ShapeFactory.newInstance();
+      //get shape by providing param
+      Shape shape = shapeFactory.getShape("CIRCLE");
+      //display
+      shape.draw(); 
 
     }
 }
@@ -150,4 +154,4 @@ public class App
 ```
 
 ## Abstract Factory pattern ## 
-Abstract Factory pattern an interface is responsible for creating a factory of related objects without explicitly specifying their classes. Each generated factory can give the objects as per the Factory pattern.
+Provide an interface for creating families of related or dependent objects without specifying their concrete classes. Each generated factory can give the objects as per the Factory pattern.

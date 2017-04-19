@@ -1,6 +1,6 @@
 package com.javaaround.dpattern.factorypattern;
 public class AbstractFactory {
-   public static Factory getFactory(String choice){
+   /*public static Factory getFactory(String choice){
    
       if(choice.equalsIgnoreCase("SHAPE")){
          return new ShapeFactory();
@@ -10,5 +10,5 @@ public class AbstractFactory {
       }
       
       return null;
-   }
+   }*/
 }

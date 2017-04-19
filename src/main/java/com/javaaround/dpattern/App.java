@@ -15,14 +15,14 @@ public class App
     	System.out.println("Hello World");
 
     	//usage of factory pattern 
-        ShapeFactory shapeFactory = new ShapeFactory();
+        ShapeFactory shapeFactory = ShapeFactory.newInstance();
         Shape shape = shapeFactory.getShape("CIRCLE");
         shape.draw(); 
 
-        //usage of abstract factory pattern 
+       /* //usage of abstract factory pattern 
         ColorFactory colorFactory = AbstractFactory.getFactory("COLOR");
         Color color = colorFactory.getColor("RED");
-        color.fill(); 
+        color.fill(); */
 
 
     }
