@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class Dbconnection {
+public class DbConnection {
 	private static Dbconnection instance = new Dbconnection();
 	public static final String URL = "jdbc:mysql://localhost/jdbcdb";
 	public static final String USER = "YOUR_DATABASE_USERNAME";
@@ -12,8 +12,8 @@ public class Dbconnection {
 	public static final String DRIVER_CLASS = "com.mysql.jdbc.Driver";
 
 	//make the constructor private so that this class cannot be
-   //instantiated
-   private Dbconnection(){
+    //instantiated
+    private DbConnection(){
    	
-   } 
+    } 
 }

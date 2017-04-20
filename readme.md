@@ -6,8 +6,8 @@
 
  Erich Gamma, Richard Helm, Ralph Johnson and John Vlissides published a book titled Design Patterns - Elements of Reusable Object-Oriented Software which initiated the concept of Design Pattern in Software development.In this book,there are 23 design patterns which can be classified in three categories:
  1. <b>Creational</b>:
- If object creation code(using new opreator - traditional way to create object) is spread in whole application, and if you need to change the process of object creation then you need to go in each and every place to make necessary changes . As a result application manages become more difficult and complicated.
- Followint design pattern gives application more flexibility and smart way to create object
+ If object creation code(using new opreator - traditional way to create object) is spread in whole application, and if you need to change the process of object creation e.g new constructor is used then you need to go in each and every place to make necessary changes . As a result application manages become more difficult and complicated,need to more testing effort.
+ Following design pattern gives application more flexibility and smart way to create object
  	1. Factory(Factory Method) pattern 
  	2. Abstract Factory pattern 
  	3. Singleton pattern 
@@ -39,17 +39,65 @@
 ## Factory Method pattern ## 
 
 Factory, as name suggest, is a place to create some different products which are somehow similar in features yet divided in categories.
-Programatically, factory pattern is used to create instances of different classes of same type.
+Programatically, factory pattern have creational methods that return instances of different classes of abstract/interface type.
 
 ## Use case ##
-Factory pattern is most suitable where there is some complex object creation steps are involved
+
+Factory pattern is most suitable where there is some complex object creation steps are involved and may be changed further.
+
 ## Use at jdk ###
+1. java.util.Calendar#getInstance()
+2. java.sql.DriverManager#getConnection()
+3. java.net.URL#openConnection()
+4. java.lang.Class#newInstance()
+5. java.lang.Class#forName()
 
-1. java.sql.DriverManager#getConnection()
-2. java.net.URL#openConnection()
-3. java.lang.Class#newInstance()
-4. java.lang.Class#forName()
+```java
+public abstract class Calendar implements Serializable, Cloneable, Comparable<Calendar> {
+    /**
+      * Gets a calendar using the default time zone and locale. The
+      * <code>Calendar</code> returned is based on the current time
+      * in the default time zone with the default locale.
+      *
+      * @return a Calendar.
+      */
+     public static Calendar getInstance()
+     {
+         Calendar cal = createCalendar(TimeZone.getDefaultRef(), Locale.getDefault(Locale.Category.FORMAT));
+         cal.sharedZone = true;           
+          return cal;
+     }
 
+     private static Calendar createCalendar(TimeZone zone,
+                                              Locale aLocale)
+        {
+            Calendar cal = null;
+  
+            String caltype = aLocale.getUnicodeLocaleType("ca");
+            if (caltype == null) {
+                // Calendar type is not specified.
+                // If the specified locale is a Thai locale,
+                // returns a BuddhistCalendar instance.
+                if ("th".equals(aLocale.getLanguage())
+                        && ("TH".equals(aLocale.getCountry()))) {
+                    cal = new BuddhistCalendar(zone, aLocale);
+                } else {
+                    cal = new GregorianCalendar(zone, aLocale);
+                }
+            } else if (caltype.equals("japanese")) {
+                cal = new JapaneseImperialCalendar(zone, aLocale);
+            } else if (caltype.equals("buddhist")) {
+                cal = new BuddhistCalendar(zone, aLocale);
+            } else {
+                // Unsupported calendar type.
+                // Use Gregorian calendar as a fallback.
+                cal = new GregorianCalendar(zone, aLocale);
+            }
+    
+            return cal;
+       }
+}
+```
 Create an interface or abstract class
 ```java
 package com.javaaround.dpattern.factorypattern;
@@ -126,6 +174,7 @@ public class ShapeFactory {
 }   
 ```
 Usage : <br>
+
 ```java
 package com.javaaround.dpattern;
 import com.javaaround.dpattern.factorypattern.ShapeFactory;
