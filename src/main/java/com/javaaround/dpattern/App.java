@@ -15,8 +15,8 @@ public class App
     	System.out.println("Hello World");
 
     	//usage of factory pattern 
-        ShapeFactory shapeFactory = ShapeFactory.newInstance();
-        Shape shape = shapeFactory.getShape("CIRCLE");
+       // ShapeFactory shapeFactory = ShapeFactory.newInstance();
+        Shape shape = ShapeFactory.getShape("CIRCLE");
         shape.draw(); 
 
        /* //usage of abstract factory pattern 

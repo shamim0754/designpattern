@@ -1,4 +1,4 @@
 package com.javaaround.dpattern.factorypattern;
 public abstract class Employee {
-   public String name
+   public String name;
 }

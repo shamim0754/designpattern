@@ -47,9 +47,9 @@ Factory pattern is most suitable where there is some complex object creation ste
 
 ## Use at jdk ###
 1. java.util.Calendar#getInstance()
-2. java.sql.DriverManager#getConnection()
-3. java.net.URL#openConnection()
-4. java.lang.Class#newInstance()
+2. java.util.ResourceBundle#getBundle()
+3. java.util.EnumSet#of()
+4. javax.xml.bind.JAXBContext#createMarshaller()
 5. java.lang.Class#forName()
 
 ```java
@@ -151,12 +151,9 @@ Create Factory class to get instance of above class
 package com.javaaround.dpattern.factorypattern;
 public class ShapeFactory {
 	
-  //return instance 
-   public static ShapeFactory newInstance() {
-      return new ShapeFactory();
-   }
+ 
    //use getShape method to get object of type shape 
-   public Shape getShape(String shapeType){
+   public static Shape getShape(String shapeType){
    	  if(shapeType == null)
          return null;	
       if(shapeType.equalsIgnoreCase("CIRCLE"))
@@ -189,11 +186,9 @@ public class App
     public static void main( String[] args )
     {
     	System.out.println("Hello World");
-
-    	//get shape factory
-      ShapeFactory shapeFactory = ShapeFactory.newInstance();
+    	
       //get shape by providing param
-      Shape shape = shapeFactory.getShape("CIRCLE");
+      Shape shape = ShapeFactory.getShape("CIRCLE");
       //display
       shape.draw(); 
 
@@ -203,4 +198,10 @@ public class App
 ```
 
 ## Abstract Factory pattern ## 
-Provide an interface for creating families of related or dependent objects without specifying their concrete classes. Each generated factory can give the objects as per the Factory pattern.
+Provide an interface for creating families of related or dependent objects without specifying their concrete classes. A creational methods returning the factory itself which in turn can be used to create another abstract/interface type
+It is considered as another layer of abstraction over factory pattern
+
+### JDK Usage ###
+1. javax.xml.parsers.DocumentBuilderFactory#newInstance()
+2. javax.xml.transform.TransformerFactory#newInstance()
+3. javax.xml.xpath.XPathFactory#newInstance()

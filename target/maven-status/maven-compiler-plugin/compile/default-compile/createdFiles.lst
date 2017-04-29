@@ -4,6 +4,7 @@ com\javaaround\dpattern\factorypattern\Factory.class
 com\javaaround\dpattern\factorypattern\Blue.class
 com\javaaround\dpattern\factorypattern\Red.class
 com\javaaround\dpattern\App.class
+com\javaaround\dpattern\factorypattern\Employee.class
 com\javaaround\dpattern\factorypattern\Shape.class
 com\javaaround\dpattern\factorypattern\Square.class
 com\javaaround\dpattern\factorypattern\Green.class
