@@ -263,3 +263,152 @@ try {
 ```
 
 ### Source code of DocumentBuilderFactory ###
+
+```java
+ public static DocumentBuilderFactory More ...newInstance() {
+    try {
+        return (DocumentBuilderFactory) FactoryFinder.find(
+            /* The default property name according to the JAXP spec */
+            "javax.xml.parsers.DocumentBuilderFactory",
+           /* The fallback implementation class name */
+           "com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl");
+   } catch (FactoryFinder.ConfigurationError e) {
+        throw new FactoryConfigurationError(e.getException(),
+                                           e.getMessage());
+   }
+}
+```
+
+FactoryFinder.java
+
+```java
+static Object newInstance(String className, ClassLoader cl,
+                                           boolean doFallback)
+              throws ConfigurationError
+{
+   // assert(className != null);
+
+   try {
+      Class providerClass;
+       if (cl == null) {
+           // If classloader is null Use the bootstrap ClassLoader.  
+           // Thus Class.forName(String) will use the current
+           // ClassLoader which will be the bootstrap ClassLoader.
+           providerClass = Class.forName(className);
+       } else {
+           try {
+               providerClass = cl.loadClass(className);
+           } catch (ClassNotFoundException x) {
+             if (doFallback) {
+                   // Fall back to current classloader
+                   cl = FactoryFinder.class.getClassLoader();
+                  if (cl != null) {
+                       providerClass = cl.loadClass(className);
+                   }
+                   else {
+                       providerClass = Class.forName(className);
+                   }
+               } else {
+                   throw x;
+               }
+           }
+       }
+                   
+       Object instance = providerClass.newInstance();
+       if (debug) dPrint("created new instance of " + providerClass +
+              " using ClassLoader: " + cl);
+       return instance;
+   } catch (ClassNotFoundException x) {
+       throw new ConfigurationError(
+           "Provider " + className + " not found", x);
+  } catch (Exception x) {
+       throw new ConfigurationError(
+          "Provider " + className + " could not be instantiated: " + x,
+           x);
+   }
+}
+
+/**
+* Finds the implementation Class object in the specified order.  Main
+* entry point.
+* @return Class object of factory, never null
+*
+* @param factoryId             Name of the factory to find, same as
+*                              a property name
+* @param fallbackClassName     Implementation class name, if nothing else
+ *                              is found.  Use null to mean no fallback.
+*
+* Package private so this code can be shared.
+*/
+static Object find(String factoryId, String fallbackClassName)
+   throws ConfigurationError
+{        
+
+   // Figure out which ClassLoader to use for loading the provider
+   // class.  If there is a Context ClassLoader then use it.
+   
+  ClassLoader classLoader = SecuritySupport.getContextClassLoader();
+  
+   if (classLoader == null) {
+       // if we have no Context ClassLoader
+       // so use the current ClassLoader
+       classLoader = FactoryFinder.class.getClassLoader();
+   }
+
+   if (debug) dPrint("find factoryId =" + factoryId);
+   
+   // Use the system property first
+   try {
+       String systemProp = SecuritySupport.getSystemProperty(factoryId);
+       if (systemProp != null && systemProp.length() > 0) {
+          if (debug) dPrint("found system property, value=" + systemProp);
+         return newInstance(systemProp, classLoader, true);
+    }
+   } catch (SecurityException se) {
+       //if first option fails due to any reason we should try next option in the
+       //look up algorithm.
+   }
+
+   // try to read from $java.home/lib/jaxp.properties
+   try {
+       String javah = SecuritySupport.getSystemProperty("java.home");
+       String configFile = javah + File.separator +
+           "lib" + File.separator + "jaxp.properties";
+       String factoryClassName = null;
+       if(firstTime){
+           synchronized(cacheProps){
+               if(firstTime){
+                   File f=new File( configFile );
+                   firstTime = false;
+                   if(SecuritySupport.doesFileExist(f)){
+                       if (debug) dPrint("Read properties file "+f);
+                       //cacheProps.load( new FileInputStream(f));
+                       cacheProps.load(SecuritySupport.getFileInputStream(f));
+                   }
+               }
+           }
+       }
+       factoryClassName = cacheProps.getProperty(factoryId);            
+
+       if(factoryClassName != null){
+           if (debug) dPrint("found in $java.home/jaxp.properties, value=" + factoryClassName);
+           return newInstance(factoryClassName, classLoader, true);
+       }
+   } catch(Exception ex ) {
+       if( debug ) ex.printStackTrace();
+   }
+
+   // Try Jar Service Provider Mechanism
+   Object provider = findJarServiceProvider(factoryId);
+   if (provider != null) {
+       return provider;
+   }
+   if (fallbackClassName == null) {
+     throw new ConfigurationError(
+         "Provider for " + factoryId + " cannot be found", null);
+   }
+
+   if (debug) dPrint("loaded from fallback value: " + fallbackClassName);
+   return newInstance(fallbackClassName, classLoader, true);
+}       
+```
