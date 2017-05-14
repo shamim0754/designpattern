@@ -98,6 +98,9 @@ public abstract class Calendar implements Serializable, Cloneable, Comparable<Ca
        }
 }
 ```
+### Demo on Factory pattern ###
+![Image of Nested](images/factory_pattern_uml_diagram.png) 
+
 Create an interface or abstract class
 ```java
 package com.javaaround.dpattern.factorypattern;
