@@ -205,3 +205,61 @@ It is considered as another layer of abstraction over factory pattern
 1. javax.xml.parsers.DocumentBuilderFactory#newInstance()
 2. javax.xml.transform.TransformerFactory#newInstance()
 3. javax.xml.xpath.XPathFactory#newInstance()
+
+### DocumentBuilderFactory ###
+
+1. create staff.xml at factorypattern
+
+```xml
+<?xml version="1.0"?>
+<company>
+  <staff id="1001">
+    <firstname>shamim</firstname>
+    <lastname>miah</lastname>
+    <nickname>shamim</nickname>
+    <salary>100000</salary>
+  </staff>
+  <staff id="2001">
+    <firstname>alamin</firstname>
+    <lastname>miah</lastname>
+    <nickname>arif</nickname>
+    <salary>200000</salary>
+  </staff>
+</company>
+```
+2. Update App.java
+
+```java
+try {
+      File fXmlFile = new File(System.getProperty("user.dir")+"/src/main/java/com/javaaround/dpattern//factorypattern/staff.xml");
+      DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+      DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+      Document doc = dBuilder.parse(fXmlFile);
+      doc.getDocumentElement().normalize();
+
+      //get staff node list
+      NodeList nList = doc.getElementsByTagName("staff");
+
+      //iterate node
+      for (int temp = 0; temp < nList.getLength(); temp++) {
+          //get each node
+          Node nNode = nList.item(temp);
+          if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+              Element eElement = (Element) nNode;
+
+              //display content
+              System.out.println("Staff id : " + eElement.getAttribute("id"));
+              System.out.println("First Name : " + eElement.getElementsByTagName("firstname").item(0).getTextContent());
+              System.out.println("Last Name : " + eElement.getElementsByTagName("lastname").item(0).getTextContent());
+              System.out.println("Nick Name : " + eElement.getElementsByTagName("nickname").item(0).getTextContent());
+              System.out.println("Salary : " + eElement.getElementsByTagName("salary").item(0).getTextContent());
+
+          }
+      }
+  }    
+  catch (Exception e) {
+       e.printStackTrace();
+  }
+```
+
+### Source code of DocumentBuilderFactory ###
