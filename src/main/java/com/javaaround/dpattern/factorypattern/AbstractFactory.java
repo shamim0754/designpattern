@@ -1,14 +1,5 @@
 package com.javaaround.dpattern.factorypattern;
-public class AbstractFactory {
-   /*public static Factory getFactory(String choice){
-   
-      if(choice.equalsIgnoreCase("SHAPE")){
-         return new ShapeFactory();
-         
-      }else if(choice.equalsIgnoreCase("COLOR")){
-         return new ColorFactory();
-      }
-      
-      return null;
-   }*/
+public abstract class AbstractFactory {
+   abstract public Shape getShape(String shape);
+   abstract public Color getColor(String color);
 }

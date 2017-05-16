@@ -99,7 +99,8 @@ public abstract class Calendar implements Serializable, Cloneable, Comparable<Ca
 }
 ```
 ### Demo on Factory pattern ###
-![Image of Nested](images/factory_pattern_uml_diagram.png) 
+
+![Image of Nested](images/factory_pattern_uml_diagram.jpg) 
 
 Create an interface or abstract class
 ```java
@@ -414,4 +415,43 @@ static Object find(String factoryId, String fallbackClassName)
    if (debug) dPrint("loaded from fallback value: " + fallbackClassName);
    return newInstance(fallbackClassName, classLoader, true);
 }       
+```
+
+### Demo on Abstract Factory pattern ###
+
+![Image of Nested](images/abstractfactory_pattern_uml_diagram.jpg) 
+
+Create ColorFactory above way
+
+1. Create Abstract factory
+```java
+package com.javaaround.dpattern.factorypattern;
+public abstract class AbstractFactory {
+   abstract public Shape getShape(String shape);
+   abstract public Color getColor(String color);
+}
+```
+2. Create FactoryFinder.java
+```java
+package com.javaaround.dpattern.factorypattern;
+public class FactoryFinder {
+   public static AbstractFactory getFactory(String choice){
+   
+      if(choice.equalsIgnoreCase("SHAPE")){
+         return new ShapeFactory();
+         
+      }else if(choice.equalsIgnoreCase("COLOR")){
+         return new ColorFactory();
+      }
+      
+      return null;
+   }
+}
+```
+3. Update App.java
+```java
+//usage of abstract factory pattern 
+AbstractFactory  colorFactory = FactoryFinder.getFactory("COLOR");
+Color color = colorFactory.getColor("RED");
+color.fill(); 
 ```

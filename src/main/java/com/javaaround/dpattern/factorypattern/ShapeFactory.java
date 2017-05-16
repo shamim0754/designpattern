@@ -1,9 +1,9 @@
 package com.javaaround.dpattern.factorypattern;
-public class ShapeFactory/* implements Factory*/ {
+public class ShapeFactory extends AbstractFactory {
 	
   
    //use getShape method to get object of type shape 
-   public static Shape getShape(String shapeType){
+   public Shape getShape(String shapeType){
    	  if(shapeType == null)
          return null;	
       if(shapeType.equalsIgnoreCase("CIRCLE"))
@@ -15,6 +15,10 @@ public class ShapeFactory/* implements Factory*/ {
       else if(shapeType.equalsIgnoreCase("SQUARE"))
          return new Square();
       
+      return null;
+   }
+   @Override
+   public Color getColor(String color) {
       return null;
    }
 }   

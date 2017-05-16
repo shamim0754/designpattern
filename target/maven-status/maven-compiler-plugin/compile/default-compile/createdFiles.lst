@@ -1,6 +1,5 @@
 com\javaaround\dpattern\factorypattern\Circle.class
 com\javaaround\dpattern\factorypattern\Color.class
-com\javaaround\dpattern\factorypattern\Factory.class
 com\javaaround\dpattern\factorypattern\Blue.class
 com\javaaround\dpattern\factorypattern\Red.class
 com\javaaround\dpattern\App.class
@@ -13,3 +12,4 @@ com\javaaround\dpattern\factorypattern\ShapeFactory.class
 com\javaaround\dpattern\factorypattern\ColorFactory.class
 com\javaaround\dpattern\singleton\Dbconnection.class
 com\javaaround\dpattern\factorypattern\AbstractFactory.class
+com\javaaround\dpattern\factorypattern\FactoryFinder.class
